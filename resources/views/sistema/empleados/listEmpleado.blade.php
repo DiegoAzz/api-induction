@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'ListClientes')
+@section('title', 'ListEmpleados')
 
 @section('content_header')
-    <h1>GESTION CLIENTES</h1>
+    <h1>GESTION EMPLEADOS</h1>
 @stop
 
 @section('content')
-    <p>Ingrese la informacion de todos los clientes..</p>
+    <p>Ingrese la informacion de todos los Empleados</p>
 
     <div class="card">
    
             <div class="card-head">
-            <a href="{{route('cliente.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
+            <a href="{{route('empresa.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
             </div>
        
         <br>
@@ -20,13 +20,10 @@
                 @php
                 $heads = [
                     'ID',
-                    'Razon Social',
-                    'Nit',
-                    'Email',
-                    ['label' => 'Telefono', 'width' => 15],
-                    'Direccion',
-                    'Ciudad',
-                    'Contacto',                    
+                    'Nombres y Apellidos',
+                    'Cargo',
+                    'Funciones',        
+                    'Imagen',                                  
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
 
@@ -47,21 +44,18 @@
 
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
-                    @foreach($clientes as $cliente)
+                    @foreach($empleados as $empleado)
                         <tr>
-                            <td>{{ $cliente->id }}</td>
-                            <td>{{ $cliente->razon_social }}</td>
-                            <td>{{ $cliente->nit }}</td>
-                            <td>{{ $cliente->email }}</td>
-                            <td>{{ $cliente->telefono }}</td>
-                            <td>{{ $cliente->direccion }}</td>
-                            <td>{{ $cliente->ciudad }}</td>
-                            <td>{{ $cliente->contacto }}</td>
-                            <td><a  href="{{ route('cliente.edit',$cliente)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <td>{{ $empleado->nombre }}</td>
+                            <td>{{ $empleado->cargo }}</td>
+                            <td>{{ $empleado->funciones }}</td>
+                            <td>{{ $empleado->imagen }}</td>
+                
+                            <td><a  href="{{ route('empresa.edit',$empleado)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
                        
-                                <form style="display: inline" action="{{ route('cliente.destroy',$cliente) }}" method="post" class="formEliminar">
+                                <form style="display: inline" action="{{ route('empresa.destroy',$empleado) }}" method="post" class="formEliminar">
                                     @csrf
                                     @method('delete')
                                     {!! $btnDelete !!}

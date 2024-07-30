@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Cliente')
+@section('title', 'empresa')
 
 @section('content_header')
-    <h1>ADMINISTRACION DE CLIENTES</h1>
+    <h1>ADMINISTRACION DE EMPLEADOS</h1>
 @stop
 
 @section('content')
-    <p>Ingrese la informacion del cliente.</p>
+    <p>Ingrese la informacion del Empleado.</p>
 
     <div class="card">
 
         <div class="card-head">
-            <a href="{{route('cliente.index')}}" class="btn btn-primary float-right mt-2 mr-2">Ver Clientes</a>
+            <a href="{{route('empresa.index')}}" class="btn btn-primary float-right mt-2 mr-2">Ver Empleados</a>
         </div>
 
         @php
@@ -27,54 +27,47 @@
 
         @endphp
         <div class="card-body">
-            <form action="{{route('cliente.store')}}" method="post">
+            <form action="{{route('empresa.store')}}" method="post">
                 @csrf
                     {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="razon_social" label="RAZON SOCIAL" placeholder="Ingrese aqui la Razon Social" label-class="text-lightblue" value="{{ old('razon_social') }}">
+                <x-adminlte-input type="text" name="nombre" label="NOMBRES Y APELLIDOS" placeholder="Ingrese aqui Nombres y Apellidos" label-class="text-lightblue" value="{{ old('nombre') }}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-user text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-                    {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="nit" label="NIT" placeholder="Ingrese Nit" label-class="text-lightblue" value="{{ old('nit') }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-user text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-                    {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="email" label="EMAIL" placeholder="Ingrese Email" label-class="text-lightblue" value="{{ old('email') }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-user text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-                    {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="telefono" label="TELEFONO" placeholder="t+8598987978" label-class="text-lightblue" value="{{ old('telefono') }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-phone text-lightblue"></i>
                         </div>
                     </x-slot>
                 </x-adminlte-input>
 
-                    {{-- With prepend slot, sm size, and label --}}
-                <x-adminlte-textarea name="direccion" label="DIRECCION" rows=5 label-class="text-lightblue"
-                igroup-size="sm" placeholder="Insertar Direccion..."   value="{{ old('direccion') }}">
+                    {{-- With prepend slot, lg size, and label --}}
+                <x-adminlte-select name="cargo" label="CARGO" label-class="text-lightblue"
+                igroup-size="lg">
                 <x-slot name="prependSlot">
-                    <div class="input-group-text bg-dark">
-                        <i class="fas fa-lg fa-file-alt text-lightblue"></i>
+                    <div class="input-group-text bg-gradient-info">
+                        <i class="fas fa-car-side"></i>
                     </div>
                 </x-slot>
+                <option value="">Seleccionar Cargo </option>
+                    <option value="Auxiliar de Limpieza">Auxiliar de Limpieza</option>
+                    <option value="Auxiliar Administrativo">Auxiliar Administrativo</option>
+                    <option value="Analista">Analista</option>
+                    <option value="Contador">Contador</option> 
+                    <option value="Desarrollador">Desarrollador</option>  
+                    <option value="Gerente">Gerente</option> 
+                    <option value="Jefe Desarrollo">Jefe Desarrollo</option>  
+                    <option value="Jefe Recursos Humanos">Jefe Recursos Humanos</option>  
+                    <option value="Soporte">Soporte</option>
+                </x-adminlte-select>
 
-                </x-adminlte-textarea>
-
-                   {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="ciudad" label="CIUDAD" placeholder="Ej:Cartagena" label-class="text-lightblue" value="{{ old('ciudad') }}">
+                    {{-- With prepend slot --}}
+                <x-adminlte-input type="text" name="funciones" label="FUNCIONES" placeholder="Ingrese Funciones" label-class="text-lightblue" value="{{ old('funciones') }}">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-user text-lightblue"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+                    {{-- With prepend slot --}}
+                <x-adminlte-input type="text" name="imagen" label="FOTO" placeholder="Su foto" label-class="text-lightblue" value="{{ old('imagen') }}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-phone text-lightblue"></i>
@@ -82,14 +75,7 @@
                     </x-slot>
                 </x-adminlte-input>
 
-                   {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="contacto" label="CONTACTO" placeholder="Ingrese el Contacto" label-class="text-lightblue" value="{{ old('contacto') }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-phone text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+                
 
                 <x-adminlte-button type="submit" label="Guardar" theme="primary" icon="fas fa-save"/>
             </form>

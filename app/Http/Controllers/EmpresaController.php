@@ -13,42 +13,39 @@ class EmpresaController extends Controller
         $empleados = Empleado::all();
         $dependencias = Dependencia::all();
 
-        return view('empresa.index', compact('empleados', 'dependencias'));
+        return view('sistema.empleados.listEmpleado', compact('empleados', 'dependencias'));
     }
 
     public function create()
     {
-        // No se necesita implementar para este ejemplo
+        return view('sistema.empleados.addEmpleado');
     }
 
+   
     public function store(Request $request)
     {
-        // Validación de datos
-        $request->validate([
-            'nombre' => 'required|string',
-            'cargo' => 'required|string',
-            'funciones' => 'required|string',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        $validacion = $request->validate([
+            'nombre' => 'required|string|max:100',
+            'cargo' => 'required|string|max:75',
+            'funciones' => 'required|string|max:75',        
+            'imagen' => 'required|string|max:75',  
+    
+            
+            
+
         ]);
 
-        // Guardar el empleado en la base de datos
-        $empleado = new Empleado([
-            'nombre' => $request->input('nombre'),
-            'cargo' => $request->input('cargo'),
-            'funciones' => $request->input('funciones'),
-        ]);
-
-        // Procesar la imagen si se ha proporcionado
-        if ($request->hasFile('imagen')) {
-            $imagen = $request->file('imagen');
-            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
-            $rutaImagen = $imagen->storeAs('imagenes', $nombreImagen, 'public');
-            $empleado->imagen = $rutaImagen;
-        }
+        $empleado = new Empleado();
+        $empleado->nombre = $request->input('nombre');
+        $empleado->cargo = $request->input('cargo');   
+        $empleado->funciones = $request->input('funciones');
+        $empleado->imagen = $request->input('imagen');
+  
+      
 
         $empleado->save();
 
-        return redirect()->route('empresa.index')->with('success', 'Empleado creado correctamente');
+        return back()->with('message','ok');
     }
 
     public function show($id)
@@ -63,7 +60,7 @@ class EmpresaController extends Controller
     {
         $empleado = Empleado::findOrFail($id);
 
-        return view('empresa.edit', compact('empleado'));
+        return view('sistema.empleados.editEmpleado', compact('empleado'));
     }
 
     public function update(Request $request, $id)
@@ -73,15 +70,17 @@ class EmpresaController extends Controller
             'nombre' => 'required|string',
             'cargo' => 'required|string',
             'funciones' => 'required|string',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen' => 'required|string',
+            //'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $empleado = Empleado::findOrFail($id);
         $empleado->nombre = $request->input('nombre');
         $empleado->cargo = $request->input('cargo');
         $empleado->funciones = $request->input('funciones');
+        $empleado->imagen = $request->input('imagen');
 
-        // Procesar la nueva imagen si se ha proporcionado
+        /* // Procesar la nueva imagen si se ha proporcionado
         if ($request->hasFile('imagen')) {
             // Eliminar la imagen anterior si existe
             if ($empleado->imagen) {
@@ -92,11 +91,11 @@ class EmpresaController extends Controller
             $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
             $rutaImagen = $imagen->storeAs('imagenes', $nombreImagen, 'public');
             $empleado->imagen = $rutaImagen;
-        }
+        } */
 
         $empleado->save();
 
-        return redirect()->route('empresa.show', $empleado->id)->with('success', 'Empleado actualizado correctamente');
+        return redirect()->route('empresa.index', $empleado->id)->with('success', 'Empleado actualizado correctamente');
     }
 
     public function destroy($id)

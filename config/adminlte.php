@@ -358,12 +358,12 @@ return [
                         'submenu' => [
                             [
                                 'text' => 'Agregar Empleado',
-                                //'route' => 'empleado.create',
+                                'route' => 'empresa.create',
                                 'icon' => 'fas fa-fw  fa-users',
                             ],                          
                             [
                                 'text' => 'Listar Empleados',
-                                //'route' => 'empleado.index',
+                                'route' => 'empresa.index',
                                 'icon' => 'fas fa-fw  fa-users',
                             ],
                           
