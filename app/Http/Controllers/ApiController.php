@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Servicio;
 use App\Models\Promocion;
+use App\Models\Empleado;
 
 class ApiController extends Controller
 {
@@ -23,4 +24,19 @@ class ApiController extends Controller
     {
         return response()->json(Promocion::all());
     }
+
+
+
+public function getEmpleados()
+{
+    $empleados = Empleado::all()->map(function ($empleado) {
+        $empleado->imagen_url = $empleado->imagen
+            ? asset('storage/' . $empleado->imagen)
+            : null;
+        return $empleado;
+    });
+
+    return response()->json($empleados);
+}
+
 }

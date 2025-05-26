@@ -27,7 +27,8 @@
 
         @endphp
         <div class="card-body">
-            <form action="{{route('empresa.store')}}" method="post">
+          <form action="{{route('empresa.store')}}" method="post" enctype="multipart/form-data">
+
                 @csrf
                     {{-- With prepend slot --}}
                 <x-adminlte-input type="text" name="nombre" label="NOMBRES Y APELLIDOS" placeholder="Ingrese aqui Nombres y Apellidos" label-class="text-lightblue" value="{{ old('nombre') }}">
@@ -50,11 +51,11 @@
                     <option value="Auxiliar de Limpieza">Auxiliar de Limpieza</option>
                     <option value="Auxiliar Administrativo">Auxiliar Administrativo</option>
                     <option value="Analista">Analista</option>
-                    <option value="Contador">Contador</option> 
-                    <option value="Desarrollador">Desarrollador</option>  
-                    <option value="Gerente">Gerente</option> 
-                    <option value="Jefe Desarrollo">Jefe Desarrollo</option>  
-                    <option value="Jefe Recursos Humanos">Jefe Recursos Humanos</option>  
+                    <option value="Contador">Contador</option>
+                    <option value="Desarrollador">Desarrollador</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Jefe Desarrollo">Jefe Desarrollo</option>
+                    <option value="Jefe Recursos Humanos">Jefe Recursos Humanos</option>
                     <option value="Soporte">Soporte</option>
                 </x-adminlte-select>
 
@@ -67,15 +68,16 @@
                     </x-slot>
                 </x-adminlte-input>
                     {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="imagen" label="FOTO" placeholder="Su foto" label-class="text-lightblue" value="{{ old('imagen') }}">
+                <x-adminlte-input type="file" name="imagen" label="FOTO" label-class="text-lightblue">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
-                            <i class="fas fa-phone text-lightblue"></i>
+                            <i class="fas fa-image text-lightblue"></i>
                         </div>
                     </x-slot>
                 </x-adminlte-input>
 
-                
+
+
 
                 <x-adminlte-button type="submit" label="Guardar" theme="primary" icon="fas fa-save"/>
             </form>
